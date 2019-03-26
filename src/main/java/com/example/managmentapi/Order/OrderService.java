@@ -1,21 +1,41 @@
 package com.example.managmentapi.Order;
 
+import com.example.managmentapi.Business.BusinessRepository;
+import com.example.managmentapi.Product.Product;
+import com.example.managmentapi.Product.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class OrderService {
     @Autowired
     private OrderRepository orderRepository;
+    @Autowired
+    private ProductRepository productRepository;
+    @Autowired
+    private BusinessRepository businessRepository;
 
     public Order getOrder(Integer id) {
         return orderRepository.findById(id).orElse(new Order());
     }
 
-    public List<Order> getOrders(){
-        return (List<Order>) orderRepository.findAll();
+    public List<Order> getOrders(Integer idBusiness){
+        List<Product> products = productRepository.findByBusiness(businessRepository.findById(idBusiness)).get();
+
+        Set<Order> orders = new HashSet<>();
+
+        for(Product p : products) {
+            for(Order o : p.getOrders()) {
+                orders.add(o);
+            }
+        }
+
+        return new ArrayList<>(orders);
     }
 
     public Integer edit(Integer id, Order order) {
