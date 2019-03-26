@@ -50,21 +50,6 @@ public class MenuController {
         return menuService.getMenu(id);
     }
 
-    @GetMapping("/menus/{idBusiness}")
-    public List<Menu> fetchOrders(@PathVariable Integer idBusiness) {
-        List<Product> products = productRepository.findByBusiness(businessRepository.findById(idBusiness)).get();
-
-        Set<Menu> menus = new HashSet<>();
-
-        for(Product p : products) {
-            for(Menu o : p.getOrders()) {
-                menus.add(o);
-            }
-        }
-
-        return new ArrayList<>(menus);
-    }
-
 
     @PostMapping("/menu")
     private Integer addMenu(@RequestBody Menu menu) {
