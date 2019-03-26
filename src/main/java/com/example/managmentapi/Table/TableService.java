@@ -14,7 +14,7 @@ public class TableService {
         return tableRepository.save(table);
     }
 
-    public Set<Table> getCategories(){
+    public Set<Table> getTables(){
         return (Set<Table>) tableRepository.findAll();
     }
 
@@ -30,7 +30,8 @@ public class TableService {
         else return -1;
     }
 
-    public void delete(Table table) {
-        tableRepository.delete(table);
+    public void delete(Integer id) {
+        if (tableRepository.findById(id).isPresent())
+            tableRepository.delete(tableRepository.findById(id).get());
     }
 }

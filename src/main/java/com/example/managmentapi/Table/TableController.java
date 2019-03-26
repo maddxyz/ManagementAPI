@@ -20,25 +20,23 @@ public class TableController {
     }
 
     @GetMapping("/categories")
-    public Set<Table> fetchCategories() {
-        return tableService.getCategories();
+    public Set<Table> fetchTables() {
+        return tableService.getTables();
     }
 
 
     @PostMapping("/table")
-    private Integer addTable(@RequestBody Table table) {
+    public Integer addTable(@RequestBody Table table) {
         return tableService.add(table).getId();
     }
 
     @PostMapping("/table/{id}")
-    private Integer editTable(@RequestBody Table table, @PathVariable("id") Integer id) {
+    public Integer editTable(@RequestBody Table table, @PathVariable("id") Integer id) {
         return tableService.edit(id, table);
     }
 
     @DeleteMapping("/table/{id}")
-    private void deleteTable(@PathVariable("id") Integer id) {
-        if (tableRepository.findById(id).isPresent())
-            tableService.delete(tableRepository.findById(id).get());
-
+    public void deleteTable(@PathVariable("id") Integer id) {
+        tableService.delete(id);
     }
 }

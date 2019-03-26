@@ -62,48 +62,48 @@ public class OrderController {
 
 
     @PostMapping("/order")
-    private Integer addOrder(@RequestBody Order order) {
+    public Integer addOrder(@RequestBody Order order) {
         return orderService.add(order).getId();
     }
 
     @PostMapping("/order/{id}")
-    private Integer editOrder(@RequestBody Order order, @PathVariable("id") Integer id) {
+    public Integer editOrder(@RequestBody Order order, @PathVariable("id") Integer id) {
         return orderService.edit(id, order);
     }
 
     @DeleteMapping("/order/{id}")
-    private void deleteOrder(@PathVariable("id") Integer id) {
+    public void deleteOrder(@PathVariable("id") Integer id) {
         if (orderRepository.findById(id).isPresent())
             orderService.delete(orderRepository.findById(id).get());
 
     }
 
     @GetMapping("/order/{id}/mark_ready")
-    private void markReady(@PathVariable("id") Integer id) {
+    public void markReady(@PathVariable("id") Integer id) {
         if (orderRepository.findById(id).isPresent())
             orderService.markReady(orderRepository.findById(id).get());
     }
 
     @GetMapping("/order/{id}/accept")
-    private void acceptOrder(@PathVariable("id") Integer id) {
+    public void acceptOrder(@PathVariable("id") Integer id) {
         if (orderRepository.findById(id).isPresent())
             orderService.acceptOrder(orderRepository.findById(id).get());
     }
 
     @GetMapping("/order/{id}/refuse")
-    private void refuseOrder(@PathVariable("id") Integer id) {
+    public void refuseOrder(@PathVariable("id") Integer id) {
         if (orderRepository.findById(id).isPresent())
             orderService.refuseOrder(orderRepository.findById(id).get());
     }
 
     @GetMapping("/order/{id}/pay")
-    private void payOrder(@PathVariable("id") Integer id) {
+    public void payOrder(@PathVariable("id") Integer id) {
         if (orderRepository.findById(id).isPresent())
             orderService.payOrder(orderRepository.findById(id).get());
     }
 
     @GetMapping("/order/{id}/unpay")
-    private void unpayOrder(@PathVariable("id") Integer id) {
+    public void unpayOrder(@PathVariable("id") Integer id) {
         if (orderRepository.findById(id).isPresent())
             orderService.unpayOrder(orderRepository.findById(id).get());
     }

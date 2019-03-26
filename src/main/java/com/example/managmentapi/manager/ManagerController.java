@@ -17,30 +17,28 @@ public class ManagerController {
     }
 
     @GetMapping("/managers")
-    private Set<Manager> fetchManagers() {
+    public Set<Manager> fetchManagers() {
         return managerService.getManagers();
     }
 
     @GetMapping("/manager/{id}")
-    private Manager fetchManager(@PathVariable("id") Integer id) {
+    public Manager fetchManager(@PathVariable("id") Integer id) {
         return managerService.getManager(id);
     }
 
     @PostMapping("/manager")
-    private Integer addManager(@RequestBody Manager manager) {
+    public Integer addManager(@RequestBody Manager manager) {
         return managerService.add(manager).getId();
     }
 
     @PostMapping("/manager/{id}")
-    private Integer editManager(@RequestBody Manager manager, @PathVariable("id") Integer id) {
+    public Integer editManager(@RequestBody Manager manager, @PathVariable("id") Integer id) {
         return managerService.edit(id, manager);
     }
 
     @DeleteMapping("/manager/{id}")
-    private void deleteManager(@PathVariable("id") Integer id) {
-        if (managerRepository.findById(id).isPresent())
-            managerService.delete(managerRepository.findById(id).get());
-
+    public void deleteManager(@PathVariable("id") Integer id) {
+        managerService.delete(id);
     }
 
 }

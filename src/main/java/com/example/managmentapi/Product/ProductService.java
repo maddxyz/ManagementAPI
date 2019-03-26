@@ -1,9 +1,11 @@
 package com.example.managmentapi.Product;
 
+import com.example.managmentapi.Category.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class ProductService {
@@ -14,8 +16,8 @@ public class ProductService {
         return productRepository.findById(id).orElse(new Product());
     }
 
-    public List<Product> getProducts(){
-        return (List<Product>) productRepository.findAll();
+    public Set<Product> getProducts(){
+        return (Set<Product>) productRepository.findAll();
     }
 
     public Integer edit(Integer id, Product product) {
@@ -32,7 +34,20 @@ public class ProductService {
     }
 
 
-    public void delete(Product product) {
-        productRepository.delete(product);
+    public void delete(Integer id) {
+        if (productRepository.findById(id).isPresent())
+            productRepository.delete(productRepository.findById(id).get());
+    }
+
+    public void updateCategory(Integer id, Category category){
+        if (productRepository.findById(id).isPresent()){
+            Set<Category> productCategories = productRepository.findById(id).get().getCategory();
+            if (productCategories.contains(category)){
+                productCategories.remove(category);
+            }
+            else {
+                productCategories.add(category);
+            }
+        }
     }
 }

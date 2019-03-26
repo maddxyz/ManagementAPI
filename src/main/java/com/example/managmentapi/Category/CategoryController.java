@@ -26,19 +26,17 @@ public class CategoryController {
 
 
     @PostMapping("/category")
-    private Integer addCategory(@RequestBody Category category) {
+    public Integer addCategory(@RequestBody Category category) {
         return categoryService.add(category).getId();
     }
 
     @PostMapping("/category/{id}")
-    private Integer editCategory(@RequestBody Category category, @PathVariable("id") Integer id) {
+    public Integer editCategory(@RequestBody Category category, @PathVariable("id") Integer id) {
         return categoryService.edit(id, category);
     }
 
     @DeleteMapping("/category/{id}")
-    private void deleteCategory(@PathVariable("id") Integer id) {
-        if (categoryRepository.findById(id).isPresent())
-            categoryService.delete(categoryRepository.findById(id).get());
-
+    public void deleteCategory(@PathVariable("id") Integer id) {
+        categoryService.delete(id);
     }
 }

@@ -15,10 +15,12 @@ public class Business {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    private int disponibility;
     @OneToMany(mappedBy = "business",targetEntity = Product.class, fetch=FetchType.EAGER)
     private Set<Manager> managers;
     @OneToMany(mappedBy = "business",targetEntity = Product.class, fetch=FetchType.EAGER)
     private Set<Product> products;
     @OneToMany(mappedBy = "business",targetEntity = Product.class, fetch=FetchType.EAGER)
     private Set<Table> tables;
+
 }

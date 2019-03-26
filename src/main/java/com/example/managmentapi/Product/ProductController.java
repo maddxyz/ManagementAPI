@@ -22,38 +22,28 @@ public class ProductController {
     }
 
     @GetMapping("/products")
-    public List<Product> fetchProducts() {
+    public Set<Product> fetchProducts() {
         return productService.getProducts();
     }
 
 
     @PostMapping("/product")
-    private Integer addProduct(@RequestBody Product product) {
+    public Integer addProduct(@RequestBody Product product) {
         return productService.add(product).getId();
     }
 
     @PostMapping("/product/{id}")
-    private Integer editProduct(@RequestBody Product product, @PathVariable("id") Integer id) {
+    public Integer editProduct(@RequestBody Product product, @PathVariable("id") Integer id) {
         return productService.edit(id, product);
     }
 
     @DeleteMapping("/product/{id}")
-    private void deleteProduct(@PathVariable("id") Integer id) {
-        if (productRepository.findById(id).isPresent())
-            productService.delete(productRepository.findById(id).get());
-
+    public void deleteProduct(@PathVariable("id") Integer id) {
+        productService.delete(id);
     }
 
     @PostMapping("/product/{id}/category")
-    private void updateCategories(@RequestBody Category category, @PathVariable("id") Integer id){
-        if (productRepository.findById(id).isPresent()){
-            Set<Category> productCategories = productRepository.findById(id).get().getCategory();
-            if (productCategories.contains(category)){
-                productCategories.remove(category);
-            }
-            else {
-                productCategories.add(category);
-            }
-        }
+    public void updateCategory(@RequestBody Category category, @PathVariable("id") Integer id){
+        productService.updateCategory(id, category);
     }
 }

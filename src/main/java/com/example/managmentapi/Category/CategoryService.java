@@ -30,7 +30,8 @@ public class CategoryService {
         else return -1;
     }
 
-    public void delete(Category category) {
-        categoryRepository.delete(category);
+    public void delete(Integer id) {
+        if (categoryRepository.findById(id).isPresent())
+            categoryRepository.delete(categoryRepository.findById(id).get());
     }
 }

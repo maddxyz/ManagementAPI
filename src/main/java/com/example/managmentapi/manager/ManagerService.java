@@ -31,8 +31,9 @@ public class ManagerService {
         else return -1;
     }
 
-    public void delete(Manager manager) {
-        managerRepository.delete(manager);
+    public void delete(Integer id) {
+        if (managerRepository.findById(id).isPresent())
+            managerRepository.delete(managerRepository.findById(id).get());
     }
 
 }
