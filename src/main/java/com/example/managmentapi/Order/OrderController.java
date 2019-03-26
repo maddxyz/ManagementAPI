@@ -47,17 +47,7 @@ public class OrderController {
 
     @GetMapping("/orders/{idBusiness}")
     public List<Order> fetchOrders(@PathVariable Integer idBusiness) {
-        List<Product> products = productRepository.findByBusiness(businessRepository.findById(idBusiness)).get();
-
-        Set<Order> orders = new HashSet<>();
-
-        for(Product p : products) {
-            for(Order o : p.getOrders()) {
-                orders.add(o);
-            }
-        }
-
-        return new ArrayList<>(orders);
+        return orderService.getOrders(idBusiness);
     }
 
 
