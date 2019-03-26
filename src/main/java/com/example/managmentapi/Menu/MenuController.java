@@ -2,6 +2,8 @@ package com.example.managmentapi.Menu;
 
 import com.example.managmentapi.Business.BusinessRepository;
 import com.example.managmentapi.Business.BusinessService;
+import com.example.managmentapi.Category.CategoryRepository;
+import com.example.managmentapi.Category.CategoryService;
 import com.example.managmentapi.Product.Product;
 import com.example.managmentapi.Product.ProductRepository;
 import com.example.managmentapi.Product.ProductService;
@@ -24,10 +26,13 @@ public class MenuController {
     private final BusinessService businessService;
     private final ProductRepository productRepository;
     private final ProductService productService;
+    private final CategoryRepository categoryRepository;
+    private final CategoryService categoryService;
 
     public MenuController(MenuService menuService, MenuRepository menuRepository, ManagerService managerService,
                           ManagerRepository managerRepository, BusinessRepository businessRepository, BusinessService businessService,
-                          ProductRepository productRepository, ProductService productService) {
+                          ProductRepository productRepository, ProductService productService,
+                          CategoryRepository categoryRepository, CategoryService categoryService) {
         this.menuService = menuService;
         this.menuRepository = menuRepository;
         this.managerService = managerService;
@@ -36,6 +41,8 @@ public class MenuController {
         this.businessService = businessService;
         this.productRepository = productRepository;
         this.productService = productService;
+        this.categoryRepository = categoryRepository;
+        this.categoryService = categoryService;
     }
 
     @GetMapping("/menu/{id}")
@@ -103,12 +110,12 @@ public class MenuController {
     @GetMapping("/menu/{id}/add/{idCat}")
     private void addCat(@PathVariable("id") Integer id, @PathVariable("idCat") Integer idCat) {
         if (menuRepository.findById(id).isPresent())
-            menuService.addCat(menuRepository.findById(id).get(), productRepository.findById(idCat).get());
+            menuService.addCat(menuRepository.findById(id).get(), categoryRepository.findById(idCat).get());
     }
 
     @GetMapping("/menu/{id}/remove/{idCat}")
     private void removeCat(@PathVariable("id") Integer id, @PathVariable("idCat") Integer idCat) {
         if (menuRepository.findById(id).isPresent())
-            menuService.removeCat(menuRepository.findById(id).get(), productRepository.findById(idCat).get());
+            menuService.removeCat(menuRepository.findById(id).get(), categoryRepository.findById(idCat).get());
     }
 }
