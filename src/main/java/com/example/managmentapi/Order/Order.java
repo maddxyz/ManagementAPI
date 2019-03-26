@@ -17,11 +17,11 @@ public class Order {
     private Date timestamp;
     private double amount;
 
-    @Column(nullable = false, columnDefinition = "int default 0")
+    @Column(columnDefinition = "int default 0")
     private int status;
     private int quantity;
 
-    @Column(nullable = false, columnDefinition = "int default 0")
+    @Column(columnDefinition = "int default 0")
     private int paid;
 
     @ManyToOne

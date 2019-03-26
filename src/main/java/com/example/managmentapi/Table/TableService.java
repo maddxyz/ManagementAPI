@@ -3,6 +3,7 @@ package com.example.managmentapi.Table;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -14,8 +15,8 @@ public class TableService {
         return tableRepository.save(table);
     }
 
-    public Set<Table> getTables(){
-        return (Set<Table>) tableRepository.findAll();
+    public List<Table> getTables(){
+        return (List<Table>) tableRepository.findAll();
     }
 
     public Table getTable(Integer id){

@@ -15,8 +15,8 @@ public class ManagerService {
         return managerRepository.save(manager);
     }
 
-    public Set<Manager> getManagers(){
-        return (Set<Manager>) managerRepository.findAll();
+    public List<Manager> getManagers(){
+        return (List<Manager>) managerRepository.findAll();
     }
 
     public Manager getManager(Integer id){

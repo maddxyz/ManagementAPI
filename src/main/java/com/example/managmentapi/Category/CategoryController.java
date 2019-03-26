@@ -2,6 +2,7 @@ package com.example.managmentapi.Category;
 
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -20,7 +21,7 @@ public class CategoryController {
     }
 
     @GetMapping("/categories")
-    public Set<Category> fetchCategories() {
+    public List<Category> fetchCategories() {
         return categoryService.getCategories();
     }
 

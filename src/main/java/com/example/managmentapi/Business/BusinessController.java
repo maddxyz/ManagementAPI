@@ -3,6 +3,7 @@ package com.example.managmentapi.Business;
 import com.example.managmentapi.Table.Table;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -16,7 +17,7 @@ public class BusinessController {
     }
 
     @GetMapping("/businesses")
-    public Set<Business> fetchBusinesses() {
+    public List<Business> fetchBusinesses() {
         return businessService.getBusinesses();
     }
 

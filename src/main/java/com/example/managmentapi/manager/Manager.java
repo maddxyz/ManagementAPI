@@ -19,7 +19,7 @@ public class Manager {
     private String phoneNumber;
     private String email;
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name="BusinessId")
     @JsonBackReference
     private Business business;
 }

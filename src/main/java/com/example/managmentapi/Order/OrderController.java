@@ -2,42 +2,22 @@ package com.example.managmentapi.Order;
 
 import com.example.managmentapi.Business.BusinessRepository;
 import com.example.managmentapi.Business.BusinessService;
-import com.example.managmentapi.Product.Product;
-import com.example.managmentapi.Product.ProductController;
 import com.example.managmentapi.Product.ProductRepository;
 import com.example.managmentapi.Product.ProductService;
 import com.example.managmentapi.manager.ManagerService;
 import com.example.managmentapi.manager.ManagerRepository;
 import org.springframework.web.bind.annotation.*;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @RestController
 public class OrderController {
     private final OrderService orderService;
     private final OrderRepository orderRepository;
-    private final ManagerService managerService;
-    private final ManagerRepository managerRepository;
-    private final BusinessRepository businessRepository;
-    private final BusinessService businessService;
-    private final ProductRepository productRepository;
-    private final ProductService productService;
 
-    public OrderController(OrderService orderService, OrderRepository orderRepository, ManagerService managerService,
-                           ManagerRepository managerRepository, BusinessRepository businessRepository, BusinessService businessService,
-                           ProductRepository productRepository, ProductService productService) {
+    public OrderController(OrderService orderService, OrderRepository orderRepository) {
         this.orderService = orderService;
         this.orderRepository = orderRepository;
-        this.managerService = managerService;
-        this.managerRepository = managerRepository;
-        this.businessRepository = businessRepository;
-        this.businessService = businessService;
-        this.productRepository = productRepository;
-        this.productService = productService;
     }
 
     @GetMapping("/order/{id}")

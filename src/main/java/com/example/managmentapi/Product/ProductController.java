@@ -22,7 +22,7 @@ public class ProductController {
     }
 
     @GetMapping("/products")
-    public Set<Product> fetchProducts() {
+    public List<Product> fetchProducts() {
         return productService.getProducts();
     }
 

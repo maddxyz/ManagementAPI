@@ -1,53 +1,37 @@
 package com.example.managmentapi.Menu;
 
-import com.example.managmentapi.Business.BusinessRepository;
-import com.example.managmentapi.Business.BusinessService;
+import com.example.managmentapi.Category.Category;
 import com.example.managmentapi.Category.CategoryRepository;
-import com.example.managmentapi.Category.CategoryService;
 import com.example.managmentapi.Product.Product;
 import com.example.managmentapi.Product.ProductRepository;
-import com.example.managmentapi.Product.ProductService;
-import com.example.managmentapi.manager.ManagerRepository;
-import com.example.managmentapi.manager.ManagerService;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @RestController
 public class MenuController {
     private final MenuService menuService;
     private final MenuRepository menuRepository;
-    private final ManagerService managerService;
-    private final ManagerRepository managerRepository;
-    private final BusinessRepository businessRepository;
-    private final BusinessService businessService;
     private final ProductRepository productRepository;
-    private final ProductService productService;
     private final CategoryRepository categoryRepository;
-    private final CategoryService categoryService;
 
-    public MenuController(MenuService menuService, MenuRepository menuRepository, ManagerService managerService,
-                          ManagerRepository managerRepository, BusinessRepository businessRepository, BusinessService businessService,
-                          ProductRepository productRepository, ProductService productService,
-                          CategoryRepository categoryRepository, CategoryService categoryService) {
+    public MenuController(MenuService menuService, MenuRepository menuRepository,
+                          ProductRepository productRepository,
+                          CategoryRepository categoryRepository) {
         this.menuService = menuService;
         this.menuRepository = menuRepository;
-        this.managerService = managerService;
-        this.managerRepository = managerRepository;
-        this.businessRepository = businessRepository;
-        this.businessService = businessService;
         this.productRepository = productRepository;
-        this.productService = productService;
         this.categoryRepository = categoryRepository;
-        this.categoryService = categoryService;
     }
 
     @GetMapping("/menu/{id}")
     public Menu fetchMenu(@PathVariable Integer id) {
         return menuService.getMenu(id);
+    }
+
+    @GetMapping("/menus")
+    public List<Menu> fetchMenus() {
+        return menuService.getMenus();
     }
 
 
@@ -80,27 +64,13 @@ public class MenuController {
             menuService.makeUnavailable(menuRepository.findById(id).get());
     }
 
-    @GetMapping("/menu/{id}/add/{idProduct}")
-    private void addProduct(@PathVariable("id") Integer id, @PathVariable("idProduct") Integer idProduct) {
-        if (menuRepository.findById(id).isPresent())
-            menuService.addProduct(menuRepository.findById(id).get(), productRepository.findById(idProduct).get());
+    @PostMapping("/menu/{id}/category")
+    public void updateCategory(@RequestBody Category category, @PathVariable("id") Integer id){
+        menuService.updateCategory(id, category);
     }
 
-    @GetMapping("/menu/{id}/remove/{idProduct}")
-    private void removeProduct(@PathVariable("id") Integer id, @PathVariable("idProduct") Integer idProduct) {
-        if (menuRepository.findById(id).isPresent())
-            menuService.removeProduct(menuRepository.findById(id).get(), productRepository.findById(idProduct).get());
-    }
-
-    @GetMapping("/menu/{id}/add/{idCat}")
-    private void addCat(@PathVariable("id") Integer id, @PathVariable("idCat") Integer idCat) {
-        if (menuRepository.findById(id).isPresent())
-            menuService.addCat(menuRepository.findById(id).get(), categoryRepository.findById(idCat).get());
-    }
-
-    @GetMapping("/menu/{id}/remove/{idCat}")
-    private void removeCat(@PathVariable("id") Integer id, @PathVariable("idCat") Integer idCat) {
-        if (menuRepository.findById(id).isPresent())
-            menuService.removeCat(menuRepository.findById(id).get(), categoryRepository.findById(idCat).get());
+    @PostMapping("/menu/{id}/product")
+    public void updateProduct(@RequestBody Product product, @PathVariable("id") Integer id){
+        menuService.updateProduct(id, product);
     }
 }

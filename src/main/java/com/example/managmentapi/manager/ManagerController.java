@@ -17,7 +17,7 @@ public class ManagerController {
     }
 
     @GetMapping("/managers")
-    public Set<Manager> fetchManagers() {
+    public List<Manager> fetchManagers() {
         return managerService.getManagers();
     }
 

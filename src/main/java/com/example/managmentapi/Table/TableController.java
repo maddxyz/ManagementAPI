@@ -2,6 +2,7 @@ package com.example.managmentapi.Table;
 
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -19,8 +20,8 @@ public class TableController {
         return tableService.getTable(id);
     }
 
-    @GetMapping("/categories")
-    public Set<Table> fetchTables() {
+    @GetMapping("/tables")
+    public List<Table> fetchTables() {
         return tableService.getTables();
     }
 

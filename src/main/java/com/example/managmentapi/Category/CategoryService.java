@@ -3,6 +3,7 @@ package com.example.managmentapi.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -14,8 +15,8 @@ public class CategoryService {
         return categoryRepository.save(category);
     }
 
-    public Set<Category> getCategories(){
-        return (Set<Category>) categoryRepository.findAll();
+    public List<Category> getCategories(){
+        return (List<Category>) categoryRepository.findAll();
     }
 
     public Category getCategory(Integer id){

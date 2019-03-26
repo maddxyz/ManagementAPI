@@ -14,13 +14,14 @@ import lombok.*;
 public class Business {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @Column(name="BusinessId")
+    private Integer id;
     private int disponibility;
-    @OneToMany(mappedBy = "business",targetEntity = Product.class, fetch=FetchType.EAGER)
+    @OneToMany(mappedBy = "business",targetEntity = Manager.class, fetch=FetchType.EAGER)
     private Set<Manager> managers;
     @OneToMany(mappedBy = "business",targetEntity = Product.class, fetch=FetchType.EAGER)
     private Set<Product> products;
-    @OneToMany(mappedBy = "business",targetEntity = Product.class, fetch=FetchType.EAGER)
+    @OneToMany(mappedBy = "business",targetEntity = Table.class, fetch=FetchType.EAGER)
     private Set<Table> tables;
 
 }

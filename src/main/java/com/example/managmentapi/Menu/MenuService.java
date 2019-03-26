@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class MenuService {
@@ -44,27 +45,31 @@ public class MenuService {
     }
 
     public void makeUnavailable(Menu menu) {
-        menu.setStatus(0);
+        menu.setAvailable(0);
         menuRepository.save(menu);
     }
 
-    public void addProduct(Menu menu, Product product) {
-        menu.addProduct(product);
-        menuRepository.save(menu);
+    public void updateCategory(Integer id, Category category){
+        if (menuRepository.findById(id).isPresent()){
+            Set<Category> menuCategories = menuRepository.findById(id).get().getCategory();
+            if (menuCategories.contains(category)){
+                menuCategories.remove(category);
+            }
+            else {
+                menuCategories.add(category);
+            }
+        }
     }
 
-    public void removeProduct(Menu menu, Product product) {
-        menu.removeProduct(product);
-        menuRepository.save(menu);
-    }
-
-    public void addCat(Menu menu, Category cat) {
-        menu.addCategory(cat);
-        menuRepository.save(menu);
-    }
-
-    public void removeCat(Menu menu, Category cat) {
-        menu.addCategory(cat);
-        menuRepository.save(menu);
+    public void updateProduct(Integer id, Product product){
+        if (menuRepository.findById(id).isPresent()){
+            Set<Product> menuProducts = menuRepository.findById(id).get().getProducts();
+            if (menuProducts.contains(product)){
+                menuProducts.remove(product);
+            }
+            else {
+                menuProducts.add(product);
+            }
+        }
     }
 }

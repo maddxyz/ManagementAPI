@@ -25,7 +25,7 @@ public class OrderService {
     }
 
     public List<Order> getOrders(Integer idBusiness){
-        List<Product> products = productRepository.findByBusiness(businessRepository.findById(idBusiness)).get();
+        List<Product> products = productRepository.findByBusiness(businessRepository.findById(idBusiness).get());
 
         Set<Order> orders = new HashSet<>();
 

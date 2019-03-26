@@ -16,8 +16,8 @@ public class ProductService {
         return productRepository.findById(id).orElse(new Product());
     }
 
-    public Set<Product> getProducts(){
-        return (Set<Product>) productRepository.findAll();
+    public List<Product> getProducts(){
+        return (List<Product>) productRepository.findAll();
     }
 
     public Integer edit(Integer id, Product product) {
