@@ -1,8 +1,10 @@
 package com.example.managmentapi.Product;
 
+import com.example.managmentapi.Category.Category;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 public class ProductController {
@@ -26,8 +28,8 @@ public class ProductController {
 
 
     @PostMapping("/product")
-    private Integer addProduct(@RequestBody Product manager) {
-        return productService.add(manager).getId();
+    private Integer addProduct(@RequestBody Product product) {
+        return productService.add(product).getId();
     }
 
     @PostMapping("/product/{id}")
@@ -40,5 +42,18 @@ public class ProductController {
         if (productRepository.findById(id).isPresent())
             productService.delete(productRepository.findById(id).get());
 
+    }
+
+    @PostMapping("/product/{id}/category")
+    private void updateCategories(@RequestBody Category category, @PathVariable("id") Integer id){
+        if (productRepository.findById(id).isPresent()){
+            Set<Category> productCategories = productRepository.findById(id).get().getCategory();
+            if (productCategories.contains(category)){
+                productCategories.remove(category);
+            }
+            else {
+                productCategories.add(category);
+            }
+        }
     }
 }

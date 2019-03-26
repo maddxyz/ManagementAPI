@@ -3,6 +3,7 @@ package com.example.managmentapi.manager;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 public class ManagerController {
@@ -16,7 +17,7 @@ public class ManagerController {
     }
 
     @GetMapping("/managers")
-    private List<Manager> fetchManagers() {
+    private Set<Manager> fetchManagers() {
         return managerService.getManagers();
     }
 

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class ManagerService {
@@ -14,8 +15,8 @@ public class ManagerService {
         return managerRepository.save(manager);
     }
 
-    public List<Manager> getManagers(){
-        return (List<Manager>) managerRepository.findAll();
+    public Set<Manager> getManagers(){
+        return (Set<Manager>) managerRepository.findAll();
     }
 
     public Manager getManager(Integer id){
