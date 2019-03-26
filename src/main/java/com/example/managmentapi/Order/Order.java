@@ -1,5 +1,6 @@
 package com.example.managmentapi.Order;
 
+import com.example.managmentapi.Product.Product;
 import lombok.*;
 
 import javax.persistence.*;
@@ -22,4 +23,7 @@ public class Order {
 
     @Column(nullable = false, columnDefinition = "int default 0")
     private int paid;
+
+    @ManyToOne
+    private Product product;
 }
