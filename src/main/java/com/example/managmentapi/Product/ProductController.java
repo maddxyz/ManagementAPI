@@ -42,8 +42,4 @@ public class ProductController {
         productService.delete(id);
     }
 
-    @PostMapping("/product/{id}/category")
-    public void updateCategory(@RequestBody Category category, @PathVariable("id") Integer id){
-        productService.updateCategory(id, category);
-    }
 }

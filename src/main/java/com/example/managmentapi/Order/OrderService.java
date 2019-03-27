@@ -20,17 +20,17 @@ public class OrderService {
     @Autowired
     private BusinessRepository businessRepository;
 
-    public Order getOrder(Integer id) {
-        return orderRepository.findById(id).orElse(new Order());
+    public Orders getOrder(Integer id) {
+        return orderRepository.findById(id).orElse(new Orders());
     }
 
-    public List<Order> getOrders(Integer idBusiness){
+    public List<Orders> getOrders(Integer idBusiness){
         List<Product> products = productRepository.findByBusiness(businessRepository.findById(idBusiness).get());
 
-        Set<Order> orders = new HashSet<>();
+        Set<Orders> orders = new HashSet<>();
 
         for(Product p : products) {
-            for(Order o : p.getOrders()) {
+            for(Orders o : p.getOrders()) {
                 orders.add(o);
             }
         }
@@ -38,22 +38,22 @@ public class OrderService {
         return new ArrayList<>(orders);
     }
 
-    public Integer edit(Integer id, Order order) {
+    public Integer edit(Integer id, Orders orders) {
         if (orderRepository.findById(id).isPresent()) {
             orderRepository.delete(orderRepository.findById(id).get());
-            order.setId(id);
-            return orderRepository.save(order).getId();
+            orders.setId(id);
+            return orderRepository.save(orders).getId();
         }
         else return -1;
     }
 
-    public Order add(Order order) {
-        return orderRepository.save(order);
+    public Orders add(Orders orders) {
+        return orderRepository.save(orders);
     }
 
 
-    public void delete(Order order) {
-        orderRepository.delete(order);
+    public void delete(Orders orders) {
+        orderRepository.delete(orders);
     }
 
     /* Here is the status codes :
@@ -63,28 +63,28 @@ public class OrderService {
         1) ready !
         -1) no tacos for you.
      */
-    public void markReady(Order order) {
-        order.setStatus(1);
-        orderRepository.save(order);
+    public void markReady(Orders orders) {
+        orders.setStatus(1);
+        orderRepository.save(orders);
     }
 
-    public void acceptOrder(Order order) {
-        order.setStatus(2);
-        orderRepository.save(order);
+    public void acceptOrder(Orders orders) {
+        orders.setStatus(2);
+        orderRepository.save(orders);
     }
 
-    public void refuseOrder(Order order) {
-        order.setStatus(-1);
-        orderRepository.save(order);
+    public void refuseOrder(Orders orders) {
+        orders.setStatus(-1);
+        orderRepository.save(orders);
     }
 
-    public void payOrder(Order order) {
-        order.setPaid(1);
-        orderRepository.save(order);
+    public void payOrder(Orders orders) {
+        orders.setPaid(1);
+        orderRepository.save(orders);
     }
 
-    public void unpayOrder(Order order) {
-        order.setPaid(0);
-        orderRepository.save(order);
+    public void unpayOrder(Orders orders) {
+        orders.setPaid(0);
+        orderRepository.save(orders);
     }
 }

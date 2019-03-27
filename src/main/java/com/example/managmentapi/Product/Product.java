@@ -3,11 +3,13 @@ package com.example.managmentapi.Product;
 import com.example.managmentapi.Business.Business;
 import com.example.managmentapi.Category.Category;
 import com.example.managmentapi.Menu.Menu;
-import com.example.managmentapi.Order.Order;
+import com.example.managmentapi.Order.Orders;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -22,14 +24,15 @@ public class Product {
     private double price;
     private int stock;
     private int image;
-    @ManyToMany
-    private Set<Category> category;
+    @ManyToOne
+    @JsonBackReference
+    private Category category;
     @ManyToOne
     @JoinColumn(name="BusinessId")
     @JsonBackReference
     private Business business;
-    @OneToMany(mappedBy = "product",targetEntity = Order.class, fetch=FetchType.EAGER)
-    private Set<Order> orders;
+    @OneToMany(mappedBy = "product",targetEntity = Orders.class)
+    private List<Orders> orders = new ArrayList<>();
     @ManyToOne
     private Menu menu;
 }

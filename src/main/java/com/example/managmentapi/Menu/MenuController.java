@@ -64,13 +64,13 @@ public class MenuController {
             menuService.makeUnavailable(menuRepository.findById(id).get());
     }
 
-    @PostMapping("/menu/{id}/category")
-    public void updateCategory(@RequestBody Category category, @PathVariable("id") Integer id){
-        menuService.updateCategory(id, category);
+    @PostMapping("/menu/{id}/product/{idProd}/add")
+    public void addProduct(@PathVariable("idProd") Integer idProd, @PathVariable("id") Integer id){
+        menuService.addProduct(id, idProd);
     }
 
-    @PostMapping("/menu/{id}/product")
-    public void updateProduct(@RequestBody Product product, @PathVariable("id") Integer id){
-        menuService.updateProduct(id, product);
+    @PostMapping("/menu/{id}/product/{idProd}/remove")
+    public void removeMenu(@PathVariable("idProd") Integer idProd, @PathVariable("id") Integer id){
+        menuService.removeProduct(id, idProd);
     }
 }

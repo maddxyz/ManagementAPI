@@ -1,6 +1,7 @@
 package com.example.managmentapi.Order;
 
 import com.example.managmentapi.Product.Product;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -10,20 +11,21 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Order {
+public class Orders {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer id;
-    private Date timestamp;
+    private int timestamp;
     private double amount;
 
-    @Column(columnDefinition = "int default 0")
+    @Column(columnDefinition = "integer default 0")
     private int status;
     private int quantity;
 
-    @Column(columnDefinition = "int default 0")
+    @Column(columnDefinition = "integer default 0")
     private int paid;
 
     @ManyToOne
+    @JsonBackReference
     private Product product;
 }

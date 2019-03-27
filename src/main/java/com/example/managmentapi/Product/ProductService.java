@@ -38,16 +38,4 @@ public class ProductService {
         if (productRepository.findById(id).isPresent())
             productRepository.delete(productRepository.findById(id).get());
     }
-
-    public void updateCategory(Integer id, Category category){
-        if (productRepository.findById(id).isPresent()){
-            Set<Category> productCategories = productRepository.findById(id).get().getCategory();
-            if (productCategories.contains(category)){
-                productCategories.remove(category);
-            }
-            else {
-                productCategories.add(category);
-            }
-        }
-    }
 }

@@ -40,4 +40,24 @@ public class CategoryController {
     public void deleteCategory(@PathVariable("id") Integer id) {
         categoryService.delete(id);
     }
+
+    @PostMapping("/category/{id}/menu/{idMenu}/attach")
+    public void addMenu(@PathVariable("idMenu") Integer idMenu, @PathVariable("id") Integer id){
+        categoryService.addMenu(id, idMenu);
+    }
+
+    @PostMapping("/category/{id}/menu/{idCat}/remove")
+    public void removeMenu(@PathVariable("idMenu") Integer idMenu, @PathVariable("id") Integer id){
+        categoryService.removeMenu(id, idMenu);
+    }
+
+    @PostMapping("/category/{id}/product/{idProd}/attach")
+    public void addProd(@PathVariable("idProd") Integer idProd, @PathVariable("id") Integer id){
+        categoryService.addProd(id, idProd);
+    }
+
+    @PostMapping("/category/{id}/menu/{idProd}/remove")
+    public void removeProd(@PathVariable("idProd") Integer idProd, @PathVariable("id") Integer id){
+        categoryService.removeProd(id, idProd);
+    }
 }

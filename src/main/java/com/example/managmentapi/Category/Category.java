@@ -1,14 +1,14 @@
 package com.example.managmentapi.Category;
 
 import com.example.managmentapi.Menu.Menu;
-import com.example.managmentapi.Order.Order;
+import com.example.managmentapi.Order.Orders;
 import com.example.managmentapi.Product.Product;
-import com.example.managmentapi.manager.Manager;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -21,11 +21,11 @@ public class Category {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer id;
     private String name;
-    @ManyToMany
-    private Set<Product> products;
+    @OneToMany
+    private List<Product> products = new ArrayList<>();
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="order_id")
-    private Order order;
-    @ManyToMany
-    private Set<Menu> menus;
+    private Orders orders;
+    @OneToMany
+    private List<Menu> menus = new ArrayList<>();
 }

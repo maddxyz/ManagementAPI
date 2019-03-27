@@ -1,7 +1,9 @@
 package com.example.managmentapi.Menu;
 
 import com.example.managmentapi.Category.Category;
+import com.example.managmentapi.Category.CategoryRepository;
 import com.example.managmentapi.Product.Product;
+import com.example.managmentapi.Product.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,10 @@ import java.util.Set;
 public class MenuService {
     @Autowired
     private MenuRepository menuRepository;
+    @Autowired
+    private CategoryRepository categoryRepository;
+    @Autowired
+    private ProductRepository productRepository;
 
     public Menu getMenu(Integer id) {
         return menuRepository.findById(id).orElse(new Menu());
@@ -49,27 +55,17 @@ public class MenuService {
         menuRepository.save(menu);
     }
 
-    public void updateCategory(Integer id, Category category){
-        if (menuRepository.findById(id).isPresent()){
-            Set<Category> menuCategories = menuRepository.findById(id).get().getCategory();
-            if (menuCategories.contains(category)){
-                menuCategories.remove(category);
-            }
-            else {
-                menuCategories.add(category);
-            }
+    public void addProduct(Integer id, Integer idProd) {
+        if (menuRepository.findById(id).isPresent() && productRepository.findById(idProd).isPresent()) {
+            productRepository.findById(idProd).get().setMenu(menuRepository.findById(id).get());
+            productRepository.save(productRepository.findById(idProd).get());
         }
     }
 
-    public void updateProduct(Integer id, Product product){
-        if (menuRepository.findById(id).isPresent()){
-            Set<Product> menuProducts = menuRepository.findById(id).get().getProducts();
-            if (menuProducts.contains(product)){
-                menuProducts.remove(product);
-            }
-            else {
-                menuProducts.add(product);
-            }
+    public void removeProduct(Integer id, Integer idProd) {
+        if (menuRepository.findById(id).isPresent() && productRepository.findById(idProd).isPresent()) {
+            productRepository.findById(idProd).get().setMenu(null);
+            productRepository.save(productRepository.findById(idProd).get());
         }
     }
 }

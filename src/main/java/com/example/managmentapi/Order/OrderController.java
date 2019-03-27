@@ -1,11 +1,5 @@
 package com.example.managmentapi.Order;
 
-import com.example.managmentapi.Business.BusinessRepository;
-import com.example.managmentapi.Business.BusinessService;
-import com.example.managmentapi.Product.ProductRepository;
-import com.example.managmentapi.Product.ProductService;
-import com.example.managmentapi.manager.ManagerService;
-import com.example.managmentapi.manager.ManagerRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,24 +15,24 @@ public class OrderController {
     }
 
     @GetMapping("/order/{id}")
-    public Order fetchOrder(@PathVariable Integer id) {
+    public Orders fetchOrder(@PathVariable Integer id) {
         return orderService.getOrder(id);
     }
 
     @GetMapping("/orders/{idBusiness}")
-    public List<Order> fetchOrders(@PathVariable Integer idBusiness) {
+    public List<Orders> fetchOrders(@PathVariable Integer idBusiness) {
         return orderService.getOrders(idBusiness);
     }
 
 
     @PostMapping("/order")
-    public Integer addOrder(@RequestBody Order order) {
-        return orderService.add(order).getId();
+    public Integer addOrder(@RequestBody Orders orders) {
+        return orderService.add(orders).getId();
     }
 
     @PostMapping("/order/{id}")
-    public Integer editOrder(@RequestBody Order order, @PathVariable("id") Integer id) {
-        return orderService.edit(id, order);
+    public Integer editOrder(@RequestBody Orders orders, @PathVariable("id") Integer id) {
+        return orderService.edit(id, orders);
     }
 
     @DeleteMapping("/order/{id}")

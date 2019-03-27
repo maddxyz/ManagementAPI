@@ -41,9 +41,9 @@ public class BusinessController {
             businessService.delete(id);
     }
 
-    @PostMapping("/business/{id}/table/add")
-    public void addTable(@RequestBody Table table, @PathVariable("id") Integer id) {
-        businessService.addTable(id, table);
+    @PostMapping("/business/{id}/table/{idTable}/add")
+    public void addTable(@PathVariable("idTable") Integer idTable, @PathVariable("id") Integer id) {
+        businessService.addTable(id, idTable);
     }
 
     @PostMapping("/business/{idb}/table/{idt}/delete")
