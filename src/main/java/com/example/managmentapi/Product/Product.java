@@ -25,11 +25,11 @@ public class Product {
     private int stock;
     private int image;
     @ManyToOne
-    @JsonBackReference
+    @JsonBackReference(value="prod-cat")
     private Category category;
     @ManyToOne
     @JoinColumn(name="BusinessId")
-    @JsonBackReference
+    @JsonBackReference(value="prod-bus")
     private Business business;
     @OneToMany(mappedBy = "product",targetEntity = Orders.class)
     private List<Orders> orders = new ArrayList<>();
